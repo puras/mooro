@@ -1,1 +1,3 @@
-# rest-emulator
+REST Emulator
+----
+
