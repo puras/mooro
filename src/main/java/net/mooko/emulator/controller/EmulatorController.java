@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -44,23 +43,15 @@ public class EmulatorController {
     private Object doRest(HttpServletRequest req) {
         String fileName = (getFileName(req));
         System.out.println("File Name is: " + fileName);
-        URL resUrl = this.getClass().getResource("/data/" + fileName);
-        String json = "parse error";
-        try {
-            if (null == resUrl) {
-                json = "File is not found";
-                return json;
-            }
-            System.out.println(resUrl.getFile());
+        InputStream is = this.getClass().getResourceAsStream("/data/" + fileName);
 
-            File file = new File(resUrl.getFile());
-            if (!file.exists()) {
-                json = "File is not found";
+        if (null == is) {
+            return "File is not found.";
+        }
 
-                return json;
-            }
-
-            json = Files.lines(Paths.get(resUrl.getFile())).collect(Collectors.joining());
+        String json = "Parse Error.";
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+            json = reader.lines().collect(Collectors.joining());
             System.out.println(json);
             Converter converter = new JacksonConverter(ObjectMapperHolder.getInstance().getMapper());
             Object obj = converter.convertToObject(json, Object.class);
