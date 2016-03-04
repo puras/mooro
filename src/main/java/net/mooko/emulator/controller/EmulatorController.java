@@ -3,16 +3,15 @@ package net.mooko.emulator.controller;
 import net.mooko.common.holder.ObjectMapperHolder;
 import net.mooko.common.json.Converter;
 import net.mooko.common.json.JacksonConverter;
+import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
 
 /**
  * @author puras <he@puras.me>
@@ -50,8 +49,10 @@ public class EmulatorController {
         }
 
         String json = "Parse Error.";
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
-            json = reader.lines().collect(Collectors.joining());
+        try {
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(is, writer, "UTF-8");
+            json = writer.toString();
             System.out.println(json);
             Converter converter = new JacksonConverter(ObjectMapperHolder.getInstance().getMapper());
             Object obj = converter.convertToObject(json, Object.class);
@@ -60,6 +61,16 @@ public class EmulatorController {
             ex.printStackTrace();
             return json;
         }
+//        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+//            json = reader.lines().collect(Collectors.joining());
+//            System.out.println(json);
+//            Converter converter = new JacksonConverter(ObjectMapperHolder.getInstance().getMapper());
+//            Object obj = converter.convertToObject(json, Object.class);
+//            return obj;
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//            return json;
+//        }
     }
 
     private String getFileName(HttpServletRequest req) {
