@@ -6,7 +6,7 @@
 
     <groupId>net.mooko</groupId>
     <artifactId>rest-emulator</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 
     <properties>
         <commons-lang.version>2.6</commons-lang.version>
