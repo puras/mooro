@@ -107,7 +107,7 @@ public class EmulatorController {
         }
 
         if (null != queryString && queryString.length() > 0) {
-            url += "||" + queryString;
+            url += "#" + queryString;
         }
 
         return url.toLowerCase() + "-" + method.toLowerCase() + ".json";
