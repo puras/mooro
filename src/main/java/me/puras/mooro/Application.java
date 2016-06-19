@@ -1,4 +1,4 @@
-package net.mooko.emulator;
+package me.puras.mooro;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

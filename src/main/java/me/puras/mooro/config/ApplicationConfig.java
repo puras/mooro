@@ -1,4 +1,4 @@
-package net.mooko.emulator.config;
+package me.puras.mooro.config;
 
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;

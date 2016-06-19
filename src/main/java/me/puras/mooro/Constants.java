@@ -1,4 +1,4 @@
-package net.mooko.emulator;
+package me.puras.mooro;
 
 /**
  * @author puras <he@puras.me>

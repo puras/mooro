@@ -1,7 +1,7 @@
-package net.mooko.emulator.config;
+package me.puras.mooro.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.mooko.common.holder.ObjectMapperHolder;
+import me.puras.common.holder.ObjectMapperHolder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
